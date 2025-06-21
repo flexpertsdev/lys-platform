@@ -21,6 +21,9 @@ import { ProductCatalog } from './pages/ProductCatalog';
 import { BrandShop } from './pages/BrandShop';
 import { ProductDetail } from './pages/ProductDetail';
 import { ShoppingCart } from './pages/ShoppingCart';
+import { Checkout } from './pages/Checkout';
+import { OrderMessages } from './pages/OrderMessages';
+import { OrderConfirmation } from './pages/OrderConfirmation';
 
 // Stores
 import { useAuthStore } from './stores/auth.store';
@@ -113,11 +116,12 @@ function App() {
             <Route path="catalog" element={<ProductCatalog />} />
             <Route path="products/:id" element={<ProductDetail />} />
             <Route path="cart" element={<ShoppingCart />} />
-            <Route path="checkout" element={<div>Checkout (Coming Soon)</div>} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="orders" element={<div>Orders (Coming Soon)</div>} />
             <Route path="orders/:id" element={<div>Order Detail (Coming Soon)</div>} />
+            <Route path="orders/confirmation/:orderNumber" element={<OrderConfirmation />} />
+            <Route path="orders/:orderId/messages" element={<OrderMessages />} />
             <Route path="messages" element={<div>Messages (Coming Soon)</div>} />
-            <Route path="messages/:orderId" element={<div>Order Messages (Coming Soon)</div>} />
             <Route path="profile" element={<div>Profile (Coming Soon)</div>} />
             <Route path="settings" element={<div>Settings (Coming Soon)</div>} />
             <Route path="help" element={<div>Help & Support (Coming Soon)</div>} />

@@ -1,42 +1,48 @@
-import type { Product } from './product.types';
-import type { User } from './user.types';
-
 export interface Order {
   id: string;
   orderNumber: string;
   retailerId: string;
-  retailer?: User;
-  items: OrderItem[];
+  retailerName: string;
+  brandId: string;
+  brandName: string;
   status: OrderStatus;
+  items: OrderItem[];
   subtotal: number;
   shipping: number;
   tax: number;
   total: number;
-  currency: string;
   shippingAddress: Address;
-  billingAddress?: Address;
-  paymentMethod: PaymentMethod;
-  notes?: string;
+  billingAddress: Address;
+  paymentMethod?: PaymentMethod;
   trackingNumber?: string;
   estimatedDelivery?: Date;
+  notes?: string;
+  messages?: OrderMessage[];
   createdAt: Date;
   updatedAt: Date;
-  completedAt?: Date;
-  cancelledAt?: Date;
-  metadata?: Record<string, any>;
+}
+
+export enum OrderStatus {
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  PROCESSING = 'processing',
+  SHIPPED = 'shipped',
+  DELIVERED = 'delivered',
+  CANCELLED = 'cancelled',
+  REFUNDED = 'refunded'
 }
 
 export interface OrderItem {
   id: string;
-  orderId: string;
   productId: string;
-  product?: Product;
-  brandId: string;
+  productName: string;
+  variantId: string;
+  variantName: string;
+  sku: string;
+  price: number;
   quantity: number;
-  unitPrice: number;
-  totalPrice: number;
-  status: OrderItemStatus;
-  notes?: string;
+  total: number;
+  image?: string;
 }
 
 export interface Address {
@@ -46,50 +52,49 @@ export interface Address {
   addressLine1: string;
   addressLine2?: string;
   city: string;
-  state?: string;
-  postalCode: string;
+  county?: string;
+  postcode: string;
   country: string;
-  phone?: string;
+  phone: string;
   isDefault?: boolean;
 }
 
 export interface PaymentMethod {
-  type: 'credit_card' | 'bank_transfer' | 'paypal' | 'stripe';
+  id: string;
+  type: 'card' | 'bank_transfer' | 'purchase_order';
   last4?: string;
   brand?: string;
   expiryMonth?: number;
   expiryYear?: number;
-  isDefault?: boolean;
+  accountNumber?: string;
+  sortCode?: string;
+  poNumber?: string;
 }
 
-export enum OrderStatus {
-  DRAFT = 'DRAFT',
-  SUBMITTED = 'SUBMITTED',
-  CONFIRMED = 'CONFIRMED',
-  PROCESSING = 'PROCESSING',
-  SHIPPED = 'SHIPPED',
-  DELIVERED = 'DELIVERED',
-  CANCELLED = 'CANCELLED',
-  REFUNDED = 'REFUNDED'
+export interface OrderMessage {
+  id: string;
+  orderId: string;
+  senderId: string;
+  senderName: string;
+  senderRole: 'retailer' | 'brand' | 'admin';
+  message: string;
+  attachments?: OrderMessageAttachment[];
+  isRead: boolean;
+  createdAt: Date;
 }
 
-export enum OrderItemStatus {
-  PENDING = 'PENDING',
-  CONFIRMED = 'CONFIRMED',
-  PROCESSING = 'PROCESSING',
-  SHIPPED = 'SHIPPED',
-  DELIVERED = 'DELIVERED',
-  CANCELLED = 'CANCELLED'
+export interface OrderMessageAttachment {
+  id: string;
+  name: string;
+  url: string;
+  type: string;
+  size: number;
 }
 
-export interface OrderFilters {
-  status?: OrderStatus[];
-  brandIds?: string[];
-  dateRange?: {
-    start: Date;
-    end: Date;
-  };
-  search?: string;
-  sortBy?: 'date' | 'total' | 'status';
-  sortOrder?: 'asc' | 'desc';
+export interface CheckoutData {
+  shippingAddress: Address;
+  billingAddress: Address;
+  sameAsBilling: boolean;
+  paymentMethod: PaymentMethod;
+  notes?: string;
 }
