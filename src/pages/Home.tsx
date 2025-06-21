@@ -1,25 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Rocket, DollarSign, FileText, CheckCircle } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const features = [
     {
-      icon: '🚀',
+      icon: Rocket,
       title: 'Fast Shipping',
       description: 'Direct from Korea to your store in days, not weeks'
     },
     {
-      icon: '💰',
+      icon: DollarSign,
       title: 'No Hidden Fees',
       description: 'Transparent pricing with no surprise shipping costs'
     },
     {
-      icon: '📝',
+      icon: FileText,
       title: 'Simple Process',
       description: 'No complicated customs forms or language barriers'
     },
     {
-      icon: '✅',
+      icon: CheckCircle,
       title: 'Verified Brands',
       description: 'All brands CPNP certified for UK/EU/CH markets'
     }
@@ -44,7 +45,9 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, idx) => (
               <div key={idx} className="feature-card">
-                <div className="feature-icon">{feature.icon}</div>
+                <div className="feature-icon">
+                  <feature.icon className="h-8 w-8 text-rose-gold" />
+                </div>
                 <h3 className="text-xl font-medium mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </div>

@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, User } from 'lucide-react';
+import { 
+  ShoppingCart, 
+  User, 
+  Home, 
+  Store, 
+  Package, 
+  UserCircle,
+  Menu,
+  X,
+  Globe,
+  ChevronDown
+} from 'lucide-react';
 import { useAuthStore } from '../../stores/auth.store';
 import { useCartStore } from '../../stores/cart.store';
 import { useUIStore } from '../../stores/ui.store';
@@ -10,17 +21,18 @@ export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuthStore();
   const { summary } = useCartStore();
   const { language, setLanguage } = useUIStore();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const cartItemCount = summary?.items.length || 0;
 
   const navLinks = isAuthenticated
     ? [
-        { path: '/dashboard', label: 'Dashboard' },
-        { path: '/brands', label: 'Brands' },
-        { path: '/catalog', label: 'Products' },
-        { path: '/orders', label: 'Orders' },
-        { path: '/cart', label: 'Shopping Cart' },
-        { path: '/settings', label: 'Settings' },
+        { path: '/dashboard', label: 'Dashboard', icon: Home },
+        { path: '/brands', label: 'Brands', icon: Store },
+        { path: '/catalog', label: 'Products', icon: Package },
+        { path: '/orders', label: 'Orders', icon: Package },
+        { path: '/cart', label: 'Shopping Cart', icon: ShoppingCart },
+        { path: '/settings', label: 'Settings', icon: UserCircle },
       ]
     : [
         { path: '/how-it-works', label: 'How It Works' },
@@ -33,126 +45,190 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Desktop Navigation */}
-      <nav className="sticky top-0 z-50 desktop-nav" style={{ backgroundColor: 'white', borderBottom: '1px solid var(--color-border-gray)' }}>
-        <div className="container">
-          <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <Link to="/" className="nav-logo">
+      {/* Desktop Navigation - DaisyUI Navbar */}
+      <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 hidden md:flex">
+        <div className="container navbar">
+          <div className="navbar-start">
+            <Link to="/" className="btn btn-ghost text-xl tracking-wider">
               LOVING YOUR SKIN
             </Link>
+          </div>
 
-            {/* Navigation Links */}
-            <div className="flex items-center gap-8">
+          <div className="navbar-center">
+            <ul className="menu menu-horizontal gap-1">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`nav-item ${isActive(link.path) ? 'active' : ''}`}
-                >
-                  {link.label}
-                </Link>
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className={`rounded-full ${
+                      isActive(link.path) 
+                        ? 'bg-soft-pink-hover text-deep-charcoal' 
+                        : 'text-text-primary hover:bg-soft-pink-hover'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               ))}
+            </ul>
+          </div>
+
+          <div className="navbar-end gap-2">
+            {/* Language Selector */}
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
+                <Globe className="h-5 w-5" />
+              </label>
+              <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32 mt-2">
+                <li><a onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>English</a></li>
+                <li><a onClick={() => setLanguage('ko')} className={language === 'ko' ? 'active' : ''}>한국어</a></li>
+                <li><a onClick={() => setLanguage('zh')} className={language === 'zh' ? 'active' : ''}>中文</a></li>
+              </ul>
             </div>
 
-            {/* User Actions */}
-            <div className="flex items-center gap-4">
-              {/* Language Selector */}
-              <select 
-                className="form-select text-sm px-3 py-1.5 rounded-full border-gray-300"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as 'en' | 'ko' | 'zh')}
-              >
-                <option value="en">EN</option>
-                <option value="ko">KO</option>
-                <option value="zh">ZH</option>
-              </select>
-
-              {isAuthenticated && user ? (
-                <>
-                  {/* Cart for logged in users */}
-                  <Link to="/cart" className="nav-item relative">
+            {isAuthenticated && user ? (
+              <>
+                {/* Cart */}
+                <Link to="/cart" className="btn btn-ghost btn-circle">
+                  <div className="indicator">
                     <ShoppingCart className="h-5 w-5" />
                     {cartItemCount > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-rose-gold text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      <span className="badge badge-sm indicator-item bg-rose-gold text-white border-rose-gold">
                         {cartItemCount}
                       </span>
                     )}
-                  </Link>
-                  
-                  {/* User Menu */}
-                  <div className="relative group">
-                    <button className="nav-item flex items-center gap-2">
-                      <User className="h-5 w-5" />
-                      <span className="text-sm">{user.displayName}</span>
-                    </button>
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <Link to="/profile" className="block px-4 py-2 text-sm hover:bg-gray-50">Profile</Link>
-                      <Link to="/settings" className="block px-4 py-2 text-sm hover:bg-gray-50">Settings</Link>
-                      <hr className="my-1" />
-                      <button onClick={logout} className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 text-red-600">
-                        Logout
-                      </button>
-                    </div>
                   </div>
-                </>
-              ) : (
-                <Link to="/login" className="btn btn-secondary">
-                  Login
                 </Link>
-              )}
-            </div>
+                
+                {/* User Menu */}
+                <div className="dropdown dropdown-end">
+                  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                    <div className="w-10 rounded-full">
+                      <User className="h-5 w-5 m-auto mt-2.5" />
+                    </div>
+                  </label>
+                  <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2">
+                    <li className="menu-title">
+                      <span>{user.displayName}</span>
+                    </li>
+                    <li><Link to="/profile">Profile</Link></li>
+                    <li><Link to="/settings">Settings</Link></li>
+                    <li><a onClick={logout} className="text-error">Logout</a></li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <Link to="/login" className="btn btn-secondary btn-sm">
+                Login
+              </Link>
+            )}
           </div>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50">
-        <div className="flex justify-around items-center h-16">
-          <Link to="/" className={`flex flex-col items-center gap-1 px-3 py-2 ${isActive('/') ? 'text-rose-gold' : 'text-gray-500'}`}>
-            <div className="text-xl">🏠</div>
-            <span className="text-xs">Home</span>
-          </Link>
-          <Link to="/brands" className={`flex flex-col items-center gap-1 px-3 py-2 ${isActive('/brands') ? 'text-rose-gold' : 'text-gray-500'}`}>
-            <div className="text-xl">🏪</div>
-            <span className="text-xs">Brands</span>
-          </Link>
-          <Link to="/cart" className={`flex flex-col items-center gap-1 px-3 py-2 relative ${isActive('/cart') ? 'text-rose-gold' : 'text-gray-500'}`}>
-            <div className="text-xl">🛒</div>
-            <span className="text-xs">Cart</span>
+      {/* Mobile Top Bar */}
+      <div className="navbar bg-base-100 shadow-sm sticky top-0 z-40 md:hidden">
+        <div className="navbar-start">
+          <button
+            className="btn btn-ghost btn-circle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+        <div className="navbar-center">
+          <Link to="/" className="btn btn-ghost text-lg">LYS</Link>
+        </div>
+        <div className="navbar-end">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle btn-sm">
+              <Globe className="h-4 w-4" />
+            </label>
+            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32 mt-2">
+              <li><a onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>EN</a></li>
+              <li><a onClick={() => setLanguage('ko')} className={language === 'ko' ? 'active' : ''}>KO</a></li>
+              <li><a onClick={() => setLanguage('zh')} className={language === 'zh' ? 'active' : ''}>ZH</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed left-0 top-0 h-full w-64 bg-base-100 shadow-xl">
+            <div className="flex items-center justify-between p-4 border-b">
+              <span className="text-lg font-medium">Menu</span>
+              <button
+                className="btn btn-ghost btn-circle btn-sm"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <ul className="menu p-4">
+              {navLinks.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className={isActive(link.path) ? 'active' : ''}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.icon && <link.icon className="h-5 w-5" />}
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Bottom Navigation - DaisyUI Bottom Navigation */}
+      <div className="btm-nav md:hidden">
+        <Link 
+          to="/" 
+          className={isActive('/') ? 'active text-rose-gold' : ''}
+        >
+          <Home className="h-5 w-5" />
+          <span className="btm-nav-label">Home</span>
+        </Link>
+        <Link 
+          to="/brands" 
+          className={isActive('/brands') ? 'active text-rose-gold' : ''}
+        >
+          <Store className="h-5 w-5" />
+          <span className="btm-nav-label">Brands</span>
+        </Link>
+        <Link 
+          to="/cart" 
+          className={`${isActive('/cart') ? 'active text-rose-gold' : ''}`}
+        >
+          <div className="indicator">
+            <ShoppingCart className="h-5 w-5" />
             {cartItemCount > 0 && (
-              <span className="absolute top-0 right-2 bg-rose-gold text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              <span className="badge badge-xs indicator-item bg-rose-gold text-white border-rose-gold">
                 {cartItemCount}
               </span>
             )}
-          </Link>
-          <Link to="/orders" className={`flex flex-col items-center gap-1 px-3 py-2 ${isActive('/orders') ? 'text-rose-gold' : 'text-gray-500'}`}>
-            <div className="text-xl">📦</div>
-            <span className="text-xs">Orders</span>
-          </Link>
-          <Link to="/profile" className={`flex flex-col items-center gap-1 px-3 py-2 ${isActive('/profile') ? 'text-rose-gold' : 'text-gray-500'}`}>
-            <div className="text-xl">👤</div>
-            <span className="text-xs">Profile</span>
-          </Link>
-        </div>
-      </nav>
-
-      {/* Mobile Top Bar */}
-      <div className="md:hidden sticky top-0 z-40 bg-white border-b border-gray-100">
-        <div className="container flex items-center justify-between h-14">
-          <Link to="/" className="text-lg font-light tracking-wider">
-            LYS
-          </Link>
-          <select 
-            className="text-sm px-2 py-1 rounded-full border border-gray-300"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value as 'en' | 'ko' | 'zh')}
-          >
-            <option value="en">EN</option>
-            <option value="ko">KO</option>
-            <option value="zh">ZH</option>
-          </select>
-        </div>
+          </div>
+          <span className="btm-nav-label">Cart</span>
+        </Link>
+        <Link 
+          to="/orders" 
+          className={isActive('/orders') ? 'active text-rose-gold' : ''}
+        >
+          <Package className="h-5 w-5" />
+          <span className="btm-nav-label">Orders</span>
+        </Link>
+        <Link 
+          to="/profile" 
+          className={isActive('/profile') ? 'active text-rose-gold' : ''}
+        >
+          <UserCircle className="h-5 w-5" />
+          <span className="btm-nav-label">Profile</span>
+        </Link>
       </div>
     </>
   );
