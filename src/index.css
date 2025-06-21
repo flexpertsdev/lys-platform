@@ -121,6 +121,7 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
     min-height: 100vh;
+    overflow-x: hidden;
   }
   
   /* Typography */
@@ -153,6 +154,16 @@
   }
   
   /* Navigation styles */
+  .desktop-nav {
+    display: none;
+  }
+  
+  @media (min-width: 768px) {
+    .desktop-nav {
+      display: block !important;
+    }
+  }
+  
   .nav-logo {
     font-size: 24px;
     font-weight: var(--font-weight-light);
@@ -413,9 +424,22 @@
     accent-color: var(--color-rose-gold);
   }
   
+  /* Footer styles */
+  footer {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+  
   /* Utilities */
   .text-gray-600 { color: var(--color-text-secondary); }
   .text-gray-500 { color: var(--color-medium-gray); }
+  .hover\:text-rose-gold:hover { color: var(--color-rose-gold); }
+  .space-y-2 > * + * { margin-top: 8px; }
+  .mt-0\.5 { margin-top: 2px; }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
@@ -536,8 +560,9 @@
   /* Responsive utilities */
   @media (min-width: 768px) {
     .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .md\:hidden { display: none; }
-    .md\:block { display: block; }
+    .md\:hidden { display: none !important; }
+    .md\:block { display: block !important; }
+    .md\:flex-row { flex-direction: row; }
   }
   
   @media (min-width: 1024px) {

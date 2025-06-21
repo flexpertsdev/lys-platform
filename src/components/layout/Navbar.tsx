@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:block sticky top-0 z-50 bg-white border-b border-gray-100">
+      <nav className="sticky top-0 z-50 desktop-nav" style={{ backgroundColor: 'white', borderBottom: '1px solid var(--color-border-gray)' }}>
         <div className="container">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
