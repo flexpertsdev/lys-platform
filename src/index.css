@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core spacing unit - all spacing derives from this */
+    --unit: 8px;
+    
+    /* Spacing scale - powers of 2 for consistency */
+    --space-xs: calc(var(--unit) * 0.5);  /* 4px */
+    --space-sm: var(--unit);              /* 8px */
+    --space-md: calc(var(--unit) * 2);    /* 16px */
+    --space-lg: calc(var(--unit) * 3);    /* 24px */
+    --space-xl: calc(var(--unit) * 4);    /* 32px */
+    --space-2xl: calc(var(--unit) * 6);   /* 48px */
+    --space-3xl: calc(var(--unit) * 8);   /* 64px */
+    
+    /* Grid specifications */
+    --columns-mobile: 4;
+    --columns-tablet: 8;
+    --columns-desktop: 12;
+    --gutter: var(--space-md);
+    
+    /* Line heights */
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-base-100 text-base-content;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Stack utilities for vertical spacing */
+  .stack > * + * { 
+    margin-top: var(--space-md); 
+  }
+  
+  .stack-sm > * + * { 
+    margin-top: var(--space-sm); 
+  }
+  
+  .stack-lg > * + * { 
+    margin-top: var(--space-lg); 
+  }
+  
+  /* Container system */
+  .container-fluid {
+    @apply w-full px-md;
+  }
+  
+  /* Touch target enforcement */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Card component base */
+  .card-base {
+    @apply bg-base-100 rounded-lg p-lg shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  /* Button base styles */
+  .btn-base {
+    @apply touch-target inline-flex items-center justify-center px-lg py-sm rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
