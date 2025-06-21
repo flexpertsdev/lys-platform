@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
     <>
       {/* Desktop Navigation - DaisyUI Navbar */}
       <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50 hidden md:flex">
-        <div className="container navbar">
+        <div className="layout-content navbar">
           <div className="navbar-start">
             <Link to="/" className="btn btn-ghost text-xl tracking-wider">
               LOVING YOUR SKIN

@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="mt-auto w-full" style={{ backgroundColor: 'var(--color-soft-pink)' }}>
-      <div className="container" style={{ paddingTop: 'var(--spacing-2xl)', paddingBottom: 'var(--spacing-2xl)' }}>
+      <div className="layout-content" style={{ paddingTop: 'var(--spacing-2xl)', paddingBottom: 'var(--spacing-2xl)' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" style={{ marginBottom: 'var(--spacing-xl)' }}>
           {/* Company Info */}
           <div>

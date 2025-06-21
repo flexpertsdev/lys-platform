@@ -157,8 +157,18 @@
 }
 
 @layer components {
-  /* Container system */
+  /* Override Tailwind's container to prevent global max-width */
   .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+    max-width: none;
+  }
+  
+  /* Custom container with max-width for layout pages */
+  .layout-content {
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 0 var(--container-padding);
@@ -171,7 +181,7 @@
     padding: 0;
   }
   
-  .navbar .container {
+  .navbar .layout-content {
     padding: 0 var(--container-padding);
   }
   
