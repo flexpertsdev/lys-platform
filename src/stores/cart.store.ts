@@ -15,6 +15,8 @@ interface CartStore {
   addToCart: (productId: string, quantity: number) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => Promise<void>;
   removeFromCart: (itemId: string) => Promise<void>;
+  removeItem: (itemId: string) => void;
+  addItem: (item: { productId: string; variantId?: string; quantity: number; price: number }) => void;
   clearCart: () => Promise<void>;
   refreshSummary: () => Promise<void>;
   validateCart: () => Promise<CartValidation>;
@@ -130,6 +132,23 @@ export const useCartStore = create<CartStore>()(
             error: error instanceof Error ? error.message : 'Failed to clear cart' 
           });
         }
+      },
+
+      removeItem: (itemId) => {
+        // Synchronous version for immediate UI updates
+        const cart = useCartStore.getState().cart;
+        if (cart) {
+          cart.items = cart.items.filter(item => item.id !== itemId);
+          set({ cart });
+        }
+      },
+
+      addItem: (item) => {
+        // Synchronous version for immediate UI updates
+        const productId = item.productId;
+        const quantity = item.quantity;
+        // For demo purposes, just call addToCart
+        useCartStore.getState().addToCart(productId, quantity);
       },
 
       refreshSummary: async () => {

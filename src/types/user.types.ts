@@ -1,8 +1,8 @@
 export enum UserRole {
-  RETAILER = 'RETAILER',
-  BRAND_REP = 'BRAND_REP',
-  ADMIN = 'ADMIN',
-  TEAM_MEMBER = 'TEAM_MEMBER'
+  RETAILER = 'retailer',
+  BRAND = 'brand',
+  ADMIN = 'admin',
+  TEAM_MEMBER = 'team_member'
 }
 
 export interface User {
@@ -50,6 +50,8 @@ export interface RegisterData {
   password: string;
   displayName: string;
   companyName: string;
+  businessName?: string;
+  phone?: string;
   role: UserRole;
   invitationToken?: string;
 }

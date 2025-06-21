@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User, LoginCredentials, RegisterData, AuthState } from '../types';
+import type { User, RegisterData, AuthState } from '../types';
 import { authService } from '../services/auth.service';
 
 interface AuthStore extends AuthState {
   // Actions
-  login: (credentials: LoginCredentials) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   updateProfile: (updates: Partial<User>) => Promise<void>;
@@ -23,10 +23,10 @@ export const useAuthStore = create<AuthStore>()(
       error: null,
 
       // Actions
-      login: async (credentials) => {
+      login: async (email: string, password: string) => {
         set({ isLoading: true, error: null });
         try {
-          const user = await authService.signIn(credentials);
+          const user = await authService.signIn({ email, password });
           set({ 
             user, 
             isAuthenticated: true, 

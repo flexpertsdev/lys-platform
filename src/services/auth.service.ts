@@ -41,7 +41,7 @@ class AuthService {
       id: '2',
       email: 'brand@demo.com',
       displayName: 'Demo Brand Rep',
-      role: UserRole.BRAND_REP,
+      role: UserRole.BRAND,
       companyName: 'K-Beauty Innovations',
       phoneNumber: '+82 2 1234 5678',
       emailVerified: true,
