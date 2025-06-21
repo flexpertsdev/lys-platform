@@ -9,8 +9,7 @@ import {
   UserCircle,
   Menu,
   X,
-  Globe,
-  ChevronDown
+  Globe
 } from 'lucide-react';
 import { useAuthStore } from '../../stores/auth.store';
 import { useCartStore } from '../../stores/cart.store';
@@ -175,7 +174,7 @@ export const Navbar: React.FC = () => {
                     className={isActive(link.path) ? 'active' : ''}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {link.icon && <link.icon className="h-5 w-5" />}
+                    {'icon' in link && link.icon && <link.icon className="h-5 w-5" />}
                     {link.label}
                   </Link>
                 </li>
