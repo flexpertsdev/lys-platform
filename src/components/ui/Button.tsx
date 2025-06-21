@@ -3,25 +3,25 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { Loader2 } from 'lucide-react';
 
 const buttonVariants = cva(
-  'touch-target inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
+  'btn',
   {
     variants: {
       variant: {
-        primary: 'bg-primary text-primary-content hover:bg-primary-focus focus:ring-primary',
-        secondary: 'bg-secondary text-secondary-content hover:bg-secondary-focus focus:ring-secondary',
-        accent: 'bg-accent text-accent-content hover:bg-accent-focus focus:ring-accent',
-        ghost: 'hover:bg-base-200 hover:text-base-content focus:ring-base-300',
-        link: 'text-primary hover:text-primary-focus underline-offset-4 hover:underline',
-        outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-primary-content focus:ring-primary',
-        error: 'bg-error text-error-content hover:bg-error-focus focus:ring-error',
-        success: 'bg-success text-success-content hover:bg-success-focus focus:ring-success',
+        primary: 'btn-primary',
+        secondary: 'btn-secondary',
+        accent: 'btn-accent',
+        ghost: 'btn-ghost',
+        link: 'btn-link',
+        outline: 'btn-outline',
+        error: 'btn-error',
+        success: 'btn-success',
       },
       size: {
-        sm: 'px-sm py-xs text-sm min-h-[36px]',
-        md: 'px-lg py-sm text-base min-h-[44px]',
-        lg: 'px-xl py-md text-lg min-h-[52px]',
-        xl: 'px-2xl py-lg text-xl min-h-[60px]',
-        icon: 'h-[44px] w-[44px]',
+        sm: 'btn-sm',
+        md: 'btn-md',
+        lg: 'btn-lg',
+        xl: 'btn-xl',
+        icon: 'btn-square',
       },
       fullWidth: {
         true: 'w-full',
