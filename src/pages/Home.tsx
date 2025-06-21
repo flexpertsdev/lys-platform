@@ -99,7 +99,7 @@ export const Home: React.FC = () => {
       {/* Features Section */}
       <section className="py-3xl">
         <Container>
-          <Stack spacing="3xl">
+          <Stack spacing="2xl">
             <div className="text-center max-w-2xl mx-auto">
               <h2 className="text-3xl lg:text-4xl font-bold mb-md">
                 Why Choose Loving Your Skin?

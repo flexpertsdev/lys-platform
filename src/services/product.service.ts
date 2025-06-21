@@ -1,4 +1,4 @@
-import { Product, ProductFilters, Brand, Category, ApiResponse, PaginationParams } from '../types';
+import type { Product, ProductFilters, Brand, Category, ApiResponse, PaginationParams } from '../types';
 import { mockProducts, mockBrands, mockCategories } from '../mock/products.mock';
 
 class ProductService {
@@ -194,8 +194,10 @@ class ProductService {
   // Mock data refresh (for development)
   async refreshMockData(): Promise<void> {
     // Re-import mock data
-    const { mockProducts: freshProducts, mockBrands: freshBrands, mockCategories: freshCategories } = 
-      await import('../mock/products.mock');
+    const freshMockData = await import('../mock/products.mock');
+    const freshProducts = freshMockData.mockProducts;
+    const freshBrands = freshMockData.mockBrands;
+    const freshCategories = freshMockData.mockCategories;
     
     this.products = [...freshProducts];
     this.brands = [...freshBrands];

@@ -28,9 +28,6 @@
     --leading-relaxed: 1.75;
   }
 
-  * {
-    @apply border-border;
-  }
   
   body {
     @apply bg-base-100 text-base-content;

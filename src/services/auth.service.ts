@@ -1,4 +1,5 @@
-import { User, UserRole, LoginCredentials, RegisterData, Invitation } from '../types';
+import type { User, LoginCredentials, RegisterData, Invitation } from '../types';
+import { UserRole } from '../types';
 
 // Mock authentication service that mirrors Firebase Auth API
 class AuthService {

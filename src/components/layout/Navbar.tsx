@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, User, Bell, Search } from 'lucide-react';
+import { Menu, X, ShoppingCart, Bell, Search } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { useAuthStore } from '../../stores/auth.store';

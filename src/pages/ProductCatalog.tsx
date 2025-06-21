@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Search, Filter, ChevronRight } from 'lucide-react';
@@ -8,7 +8,7 @@ import { Input } from '../components/ui/Input';
 import { ProductCard, Card, CardBody } from '../components/ui/Card';
 import { Badge, CertificationBadge, StatusBadge } from '../components/ui/Badge';
 import { productService } from '../services/product.service';
-import { Product, ProductFilters, Brand, Category } from '../types';
+import type { Product, ProductFilters, Brand, Category } from '../types';
 import toast from 'react-hot-toast';
 import { useCartStore } from '../stores/cart.store';
 
@@ -275,14 +275,14 @@ export const ProductCatalog: React.FC = () => {
             )}
 
             {/* Pagination */}
-            {productsData?.metadata && productsData.metadata.totalPages > 1 && (
+            {productsData?.metadata && productsData.metadata.totalPages && productsData.metadata.totalPages > 1 && (
               <div className="flex justify-center mt-2xl">
                 <div className="btn-group">
                   {Array.from({ length: productsData.metadata.totalPages }, (_, i) => (
                     <button
                       key={i + 1}
                       className={`btn btn-sm ${
-                        productsData.metadata.page === i + 1 ? 'btn-active' : ''
+                        productsData.metadata?.page === i + 1 ? 'btn-active' : ''
                       }`}
                     >
                       {i + 1}

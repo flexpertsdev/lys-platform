@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Cart, CartItem, CartSummary, CartValidation } from '../types';
+import type { Cart, CartSummary, CartValidation } from '../types';
 import { cartService } from '../services/cart.service';
 
 interface CartStore {
@@ -17,12 +17,12 @@ interface CartStore {
   removeFromCart: (itemId: string) => Promise<void>;
   clearCart: () => Promise<void>;
   refreshSummary: () => Promise<void>;
-  validateCart: () => Promise<void>;
+  validateCart: () => Promise<CartValidation>;
 }
 
 export const useCartStore = create<CartStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Initial state
       cart: null,
       summary: null,

@@ -73,7 +73,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               className: `${leftIcon ? 'pl-10' : ''} ${rightIcon ? 'pr-10' : ''} ${className || ''}` 
             })}
             ref={ref}
-            aria-invalid={hasError}
+            aria-invalid={hasError ? 'true' : undefined}
             aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
             {...props}
           />
@@ -139,7 +139,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             className: `min-h-[100px] ${className || ''}` 
           })}
           ref={ref}
-          aria-invalid={hasError}
+          aria-invalid={hasError ? 'true' : undefined}
           aria-describedby={error ? `${textareaId}-error` : helperText ? `${textareaId}-helper` : undefined}
           {...props}
         />

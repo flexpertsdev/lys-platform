@@ -1,4 +1,5 @@
-import { Product, ProductStatus, Brand, Category, Certification } from '../types';
+import type { Product, Brand, Category } from '../types';
+import { ProductStatus } from '../types';
 
 export const mockBrands: Brand[] = [
   {

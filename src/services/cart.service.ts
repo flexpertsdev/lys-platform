@@ -1,11 +1,12 @@
-import { 
+import type { 
   Cart, 
   CartItem, 
   CartSummary, 
   BrandCartSummary, 
   MOQStatus,
   CartValidation,
-  CartValidationError 
+  CartValidationError,
+  CartValidationWarning 
 } from '../types';
 import { productService } from './product.service';
 
@@ -234,7 +235,7 @@ class CartService {
     }
 
     const errors: CartValidationError[] = [];
-    const warnings = [];
+    const warnings: CartValidationWarning[] = [];
 
     // Check MOQ requirements
     summary.brandSummaries.forEach(brand => {
