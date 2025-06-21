@@ -162,17 +162,45 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
+    padding-left: 16px;
+    padding-right: 16px;
     max-width: none;
   }
   
-  /* Custom container with max-width for layout pages */
+  /* Responsive container system from design specs */
+  @media (min-width: 768px) {
+    .container {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+  
+  /* Layout content with max-width constraints */
   .layout-content {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
     width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  @media (min-width: 768px) {
+    .layout-content {
+      padding: 0 24px;
+      max-width: 768px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .layout-content {
+      padding: 0 32px;
+      max-width: 1200px;
+    }
   }
   
   /* DaisyUI Component Overrides */
@@ -181,9 +209,7 @@
     padding: 0;
   }
   
-  .navbar .layout-content {
-    padding: 0 var(--container-padding);
-  }
+  /* Remove navbar padding override - let layout-content handle it */
   
   .menu-horizontal > li > a {
     padding: 0.5rem 1rem;
@@ -267,10 +293,10 @@
   .text-rose-gold { color: var(--color-rose-gold); }
   .border-rose-gold { border-color: var(--color-rose-gold); }
   
-  /* Card styles */
+  /* Card styles - matching design system */
   .card {
     background-color: var(--color-primary-white);
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--color-border-gray);
     transition: all 0.3s;
@@ -283,20 +309,63 @@
     border-color: var(--color-rose-gold);
   }
   
-  /* Button styles */
+  /* Auth container for login/register pages */
+  .auth-container {
+    width: 100%;
+    max-width: 480px;
+  }
+  
+  @media (min-width: 768px) {
+    .auth-container {
+      max-width: 520px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .auth-container {
+      max-width: 580px;
+    }
+  }
+  
+  /* Auth card specific styling */
+  .auth-card {
+    background-color: var(--color-primary-white);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--color-border-gray);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  @media (min-width: 640px) {
+    .auth-card {
+      padding: 32px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .auth-card {
+      padding: 48px;
+    }
+  }
+  
+  /* Button styles - matching design system */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 40px;
-    border-radius: var(--radius-full);
-    font-weight: var(--font-weight-medium);
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-weight: 500;
     transition: all 0.3s;
     border: none;
     cursor: pointer;
     text-decoration: none;
     font-size: 16px;
-    min-height: 44px;
+    min-height: 48px;
+  }
+  
+  .btn-primary {
+    padding: 16px 40px;
   }
   
   /* Button sizes */
@@ -304,6 +373,40 @@
     padding: 10px 20px;
     font-size: 14px;
     min-height: 36px;
+  }
+  
+  /* Input styles - matching design system */
+  .input {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-gray);
+    min-height: 48px;
+    font-size: 14px;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: var(--color-rose-gold);
+    box-shadow: 0 0 0 3px rgba(212, 165, 165, 0.1);
+  }
+  
+  .input-bordered {
+    border: 1px solid var(--color-border-gray);
+  }
+  
+  /* Checkbox styles */
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border-gray);
+  }
+  
+  .checkbox:checked {
+    background-color: var(--color-rose-gold);
+    border-color: var(--color-rose-gold);
   }
   
   .btn-md {

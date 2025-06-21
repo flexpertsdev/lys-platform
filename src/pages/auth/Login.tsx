@@ -38,20 +38,19 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-soft-pink to-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-soft-pink to-white py-12 px-4">
+      <div className="auth-container space-y-8">
         {/* Logo and Title */}
         <div className="text-center">
-          <h1 className="text-4xl font-light tracking-wider text-deep-charcoal mb-2">
+          <h1 className="text-5xl font-light tracking-wider text-deep-charcoal mb-2">
             LOVING YOUR SKIN
           </h1>
-          <p className="text-text-secondary">Welcome back to your beauty marketplace</p>
+          <p className="text-lg text-text-secondary">Welcome back to your beauty marketplace</p>
         </div>
 
         {/* Login Form */}
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title text-2xl font-light mb-6">Sign In</h2>
+        <div className="auth-card">
+            <h2 className="text-3xl font-normal mb-6">Sign In</h2>
             
             {error && (
               <div className="alert alert-error mb-4">
@@ -148,7 +147,6 @@ export const Login: React.FC = () => {
                 Create an account
               </Link>
             </p>
-          </div>
         </div>
 
         {/* Demo Credentials */}
